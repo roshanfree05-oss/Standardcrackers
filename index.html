@@ -121,92 +121,78 @@ button,.btn{border:0;border-radius:9px;padding:11px 15px;font-weight:800;cursor:
 <div class="cartbar" onclick="openCart()">🛒 <span id="cartText">0 items</span></div>
 <div class="modal" id="modal" onclick="if(event.target===this)closeCart()"><div class="panel"><div style="display:flex;justify-content:space-between;align-items:center"><h2>Your Order</h2><button class="secondary" onclick="closeCart()">Close</button></div><div id="items"></div><div class="total" id="total">Total: ₹0</div><button class="primary" style="width:100%" onclick="checkout()">Send Order on WhatsApp</button></div></div>
 <script>
-const products=[["Sparklers", "BOBY GOLD SPARKLERS 7CM (10PCS)", 100, 20, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-26.jpg"], ["Sparklers", "BOBBY CRACKLINGS SPARKLERS 7CM (10PCS)", 125, 25, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-111.jpg"], ["Sparklers", "12CM 4 COLOUR SPARKLERS (10PCS)", 250, 50, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-295.jpg"], ["Sparklers", "12CM RED SPARKLERS (10PCS)", 275, 55, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-344.jpg"], ["Sparklers", "LEMON TREE SPARKLERS 15CM (10PCS)", 375, 75, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-122.jpg"], ["Sparklers", "GOLD SPARKLERS 15CM (10PCS)", 450, 90, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-112.jpg"], ["Flower Pots", "LITTLE FLOWER (1PC)", 400, 80, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-141.jpg"], ["Flower Pots", "MINI FOUNTAIN (RED/GOLD/SILVER) (6PCS)", 400, 80, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-355.jpeg"], ["Flower Pots", "FLOWERPOT SMALL (10PCS)", 500, 100, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-5.jpg"], ["Flower Pots", "FLOWERPOTS BIG (10PCS)", 900, 180, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-126.jpg"], ["Flower Pots", "FLOWERPOTS SPECIAL (10PCS)", 1200, 240, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-127.jpg"], ["Ground Chakkars", "ZAMIN CHAKKARS BIG (10PCS)", 350, 70, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-6.jpg"], ["Ground Chakkars", "RED & WHITE CHAKKARS (10PCS)", 400, 80, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-152.jpg"], ["Ground Chakkars", "TWIN SPIN WHEEL (5PCS)", 625, 125, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-150.jpg"], ["Ground Chakkars", "ZAMIN CHAKKARS SPECIAL (10PCS)", 1000, 200, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-247.jpg"], ["Novel Fireworks", "TWINKLING STAR 45CM (10PCS)", 300, 60, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-7.jpg"], ["Novel Fireworks", "FIRE PENCILS (10PCS)", 425, 85, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-165.jpg"], ["Rockets", "SURVEYOR ROCKETS (10PCS)", 525, 105, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-13.jpg"], ["Rockets", "RAINBOW ROCKETS (10PCS)", 875, 175, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-190.jpg"], ["Rockets", "ROHINI ROCKETS (10PCS)", 1500, 300, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-191.jpg"], ["Sound Crackers", "SPARROW 6.5CM (5PCS)", 100, 20, "1 Pkt", "https://www.standardcrackers.com/assets/uploads/product-featured-174.jpg"], ["Sound Crackers", "9CM PEACOCK (5PCS)", 150, 30, "1 Pkt", "https://www.standardcrackers.com/assets/uploads/product-featured-175.jpg"], ["Sound Crackers", "10CM LAKSHMI (5PCS)", 225, 45, "1 Pkt", "https://www.standardcrackers.com/assets/uploads/product-featured-177.jpg"], ["Bijili", "BIJILI RED (50PCS)", 200, 40, "1 Pkt", "https://www.standardcrackers.com/assets/uploads/product-featured-9.jpg"], ["Bijili", "RED BIJILI (100PCS)", 375, 75, "1 Pkt", "https://www.standardcrackers.com/assets/uploads/product-featured-180.jpg"], ["Bombs", "BULLET BOMBS (10PCS)", 300, 60, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-10.jpg"], ["Bombs", "COLOUR FLASH (5PCS)", 625, 125, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-195.jpg"], ["Bombs", "ATOM BOMBS (10PCS)", 675, 135, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-181.jpg"], ["Matchboxes", "CONE 3 IN 1 MATCHBOX", 80, 40, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-96.jpg"], ["Matchboxes", "KING 6 IN 1 MATCHBOX", 160, 80, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-97.jpg"], ["Gift Boxes", "FANTASTIC 37 GIFTBOX", 2860, 1430, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-85.jpg"], ["Gift Boxes", "KHUSHI 42 GIFTBOX", 3480, 1740, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-89.jpg"], ["Gift Boxes", "JUBILEE 46 GIFTBOX", 3760, 1880, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-92.jpg"], ["Gift Boxes", "TITAN 55 GIFTBOX", 5150, 2575, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-94.jpg"]],cart=[];let active="All";const cats=["All",...new Set(products.map(p=>p[0]))];
-document.getElementById("filters").innerHTML=cats.map(c=>`<button class="${c==="All"?"active":""}" onclick="setCat('${c}')">${c}</button>`).join("");
+const products=[["Sparklers", "BOBY GOLD SPARKLERS 7CM (10PCS)", 100, 20, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-26.jpg"], ["Sparklers", "BOBBY CRACKLINGS SPARKLERS 7CM (10PCS)", 125, 25, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-111.jpg"], ["Sparklers", "12CM 4 COLOUR SPARKLERS (10PCS)", 250, 50, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-295.jpg"], ["Sparklers", "12CM RED SPARKLERS (10PCS)", 275, 55, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-344.jpg"], ["Sparklers", "LEMON TREE SPARKLERS 15CM (10PCS)", 375, 75, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-122.jpg"], ["Sparklers", "GOLD SPARKLERS 15CM (10PCS)", 450, 90, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-112.jpg"], ["Flower Pots", "LITTLE FLOWER (1PC)", 400, 80, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-141.jpg"], ["Flower Pots", "MINI FOUNTAIN (RED/GOLD/SILVER) (6PCS)", 400, 80, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-355.jpeg"], ["Flower Pots", "FLOWERPOT SMALL (10PCS)", 500, 100, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-5.jpg"], ["Flower Pots", "FLOWERPOTS BIG (10PCS)", 900, 180, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-126.jpg"], ["Flower Pots", "FLOWERPOTS SPECIAL (10PCS)", 1200, 240, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-127.jpg"], ["Ground Chakkars", "ZAMIN CHAKKARS BIG (10PCS)", 350, 70, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-6.jpg"], ["Ground Chakkars", "RED & WHITE CHAKKARS (10PCS)", 400, 80, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-152.jpg"], ["Ground Chakkars", "TWIN SPIN WHEEL (5PCS)", 625, 125, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-150.jpg"], ["Ground Chakkars", "ZAMIN CHAKKARS SPECIAL (10PCS)", 1000, 200, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-247.jpg"], ["Novel Fireworks", "TWINKLING STAR 45CM (10PCS)", 300, 60, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-7.jpg"], ["Novel Fireworks", "FIRE PENCILS (10PCS)", 425, 85, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-165.jpg"], ["Rockets", "SURVEYOR ROCKETS (10PCS)", 525, 105, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-13.jpg"], ["Rockets", "RAINBOW ROCKETS (10PCS)", 875, 175, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-190.jpg"], ["Rockets", "ROHINI ROCKETS (10PCS)", 1500, 300, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-191.jpg"], ["Sound Crackers", "SPARROW 6.5CM (5PCS)", 100, 20, "1 Pkt", "https://www.standardcrackers.com/assets/uploads/product-featured-174.jpg"], ["Sound Crackers", "9CM PEACOCK (5PCS)", 150, 30, "1 Pkt", "https://www.standardcrackers.com/assets/uploads/product-featured-175.jpg"], ["Sound Crackers", "10CM LAKSHMI (5PCS)", 225, 45, "1 Pkt", "https://www.standardcrackers.com/assets/uploads/product-featured-177.jpg"], ["Bijili", "BIJILI RED (50PCS)", 200, 40, "1 Pkt", "https://www.standardcrackers.com/assets/uploads/product-featured-9.jpg"], ["Bijili", "RED BIJILI (100PCS)", 375, 75, "1 Pkt", "https://www.standardcrackers.com/assets/uploads/product-featured-180.jpg"], ["Bombs", "BULLET BOMBS (10PCS)", 300, 60, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-10.jpg"], ["Bombs", "COLOUR FLASH (5PCS)", 625, 125, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-195.jpg"], ["Bombs", "ATOM BOMBS (10PCS)", 675, 135, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-181.jpg"], ["Matchboxes", "CONE 3 IN 1 MATCHBOX", 80, 40, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-96.jpg"], ["Matchboxes", "KING 6 IN 1 MATCHBOX", 160, 80, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-97.jpg"], ["Gift Boxes", "FANTASTIC 37 GIFTBOX", 2860, 1430, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-85.jpg"], ["Gift Boxes", "KHUSHI 42 GIFTBOX", 3480, 1740, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-89.jpg"], ["Gift Boxes", "JUBILEE 46 GIFTBOX", 3760, 1880, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-92.jpg"], ["Gift Boxes", "TITAN 55 GIFTBOX", 5150, 2575, "1 Box", "https://www.standardcrackers.com/assets/uploads/product-featured-94.jpg"]],let active="All";
+const CART_KEY="standardCrackersCart";
+let cart=loadCart();
+const cats=["All",...new Set(products.map(p=>p[0]))];
+
+function loadCart(){
+  try{
+    const saved=JSON.parse(localStorage.getItem(CART_KEY)||"[]");
+    return Array.isArray(saved)?saved.filter(x=>Number.isInteger(x.i)&&x.i>=0&&x.i<products.length&&x.q>0).map(x=>({i:x.i,q:Number(x.q)})):[];
+  }catch(e){return []}
+}
+function saveCart(){try{localStorage.setItem(CART_KEY,JSON.stringify(cart));}catch(e){}}
 function setCat(c){active=c;document.querySelectorAll(".filters button").forEach(b=>b.classList.toggle("active",b.textContent===c));render()}
-function render(){const q=document.getElementById("search").value.toLowerCase();const list=products.map((p,i)=>[p,i]).filter(x=>(active==="All"||x[0][0]===active)&&x[0][1].toLowerCase().includes(q));document.getElementById("grid").innerHTML=list.map(x=>{const p=x[0],i=x[1];return `<article class="card"><div class="pic"><img src="${p[5]}" alt="${p[1]}" loading="lazy" onerror="this.style.display='none'"></div><div class="body"><div class="cat">${p[0]}</div><div class="name">${p[1]}</div><div class="pack">${p[4]}</div><div class="price"><span class="mrp">₹${p[2]}</span><span class="sale">₹${p[3]}</span></div><div class="controls"><button class="mini" onclick="changeTemp(${i},-1)">−</button><span class="qty" id="temp${i}">1</span><button class="mini" onclick="changeTemp(${i},1)">+</button></div><button class="add" onclick="add(${i})">Add to Order</button></div></article>`}).join("")}
-const temp={};function changeTemp(i,d){temp[i]=Math.max(1,(temp[i]||1)+d);document.getElementById("temp"+i).textContent=temp[i]}
-function add(i){const q=temp[i]||1;const found=cart.find(x=>x.i===i);if(found)found.q+=q;else cart.push({i,q});temp[i]=1;const el=document.getElementById("temp"+i);if(el)el.textContent=1;update()}
-function update(){const n=cart.reduce((s,x)=>s+x.q,0);document.getElementById("count").textContent=n;document.getElementById("cartText").textContent=n+" item"+(n===1?"":"s")}
-function openCart(){document.getElementById("modal").style.display="flex";document.getElementById("items").innerHTML=cart.length?cart.map((x,k)=>{const p=products[x.i];return `<div class="item"><span><b>${p[1]}</b><br><small>${x.q} × ₹${p[3]} = ₹${x.q*p[3]}</small></span><span><button class="mini" onclick="cart[k].q--;if(cart[k].q<=0)cart.splice(k,1);update();openCart()">−</button> <button class="mini" onclick="cart[k].q++;update();openCart()">+</button> <button class="remove" onclick="cart.splice(k,1);update();openCart()">Remove</button></span></div>`}).join(""):"<p class='muted'>Your order is empty.</p>";document.getElementById("total").textContent="Total: ₹"+cart.reduce((s,x)=>s+products[x.i][3]*x.q,0)}
+document.getElementById("filters").innerHTML=cats.map(c=>`<button class="${c==="All"?"active":""}" onclick="setCat('${c}')">${c}</button>`).join("");
+
+function render(){
+  const q=document.getElementById("search").value.toLowerCase();
+  const list=products.map((p,i)=>[p,i]).filter(x=>(active==="All"||x[0][0]===active)&&x[0][1].toLowerCase().includes(q));
+  document.getElementById("grid").innerHTML=list.map(x=>{
+    const p=x[0],i=x[1];
+    return `<article class="card"><div class="pic"><img src="${p[5]}" alt="${p[1]}" loading="lazy" onerror="this.style.display='none'"></div><div class="body"><div class="cat">${p[0]}</div><div class="name">${p[1]}</div><div class="pack">${p[4]}</div><div class="price"><span class="mrp">₹${p[2]}</span><span class="sale">₹${p[3]}</span></div><div class="controls"><button class="mini" onclick="changeTemp(${i},-1)">−</button><span class="qty" id="temp${i}">1</span><button class="mini" onclick="changeTemp(${i},1)">+</button></div><button class="add" onclick="add(${i})">Add to Order</button></div></article>`
+  }).join("");
+}
+const temp={};
+function changeTemp(i,d){temp[i]=Math.max(1,(temp[i]||1)+d);document.getElementById("temp"+i).textContent=temp[i]}
+function add(i){
+  const q=temp[i]||1;
+  const found=cart.find(x=>x.i===i);
+  if(found)found.q+=q;else cart.push({i,q});
+  saveCart();
+  temp[i]=1;
+  const el=document.getElementById("temp"+i);if(el)el.textContent=1;
+  update();
+}
+function update(){
+  const n=cart.reduce((s,x)=>s+x.q,0);
+  document.getElementById("count").textContent=n;
+  document.getElementById("cartText").textContent=n+" item"+(n===1?"":"s");
+  const b=document.getElementById("v6CartBadge");
+  if(b){b.textContent=n;b.style.display=n?"inline-flex":"none";}
+}
+function openCart(){
+  cart=loadCart();
+  document.getElementById("modal").style.display="flex";
+  document.getElementById("items").innerHTML=cart.length?cart.map((x,k)=>{
+    const p=products[x.i];
+    return `<div class="item"><span><b>${p[1]}</b><br><small>${x.q} × ₹${p[3]} = ₹${x.q*p[3]}</small></span><span><button class="mini" onclick="cart[k].q--;if(cart[k].q<=0)cart.splice(k,1);saveCart();update();openCart()">−</button> <button class="mini" onclick="cart[k].q++;saveCart();update();openCart()">+</button> <button class="remove" onclick="cart.splice(k,1);saveCart();update();openCart()">Remove</button></span></div>`
+  }).join(""):"<p class='muted'>Your order is empty.</p>";
+  document.getElementById("total").textContent="Total: ₹"+cart.reduce((s,x)=>s+products[x.i][3]*x.q,0);
+}
 function closeCart(){document.getElementById("modal").style.display="none"}
-function checkout(){if(!cart.length)return alert("Your order is empty.");const phone="918500627708";const lines=cart.map(x=>{const p=products[x.i];return `${p[1]} — ${x.q} × ₹${p[3]} = ₹${x.q*p[3]}`}).join("\n");const total=cart.reduce((s,x)=>s+products[x.i][3]*x.q,0);location.href=`https://wa.me/${phone}?text=${encodeURIComponent("Hello Standard Crackers, I would like to place this order:\n\n"+lines+"\n\nTotal: ₹"+total)}`}
+function checkout(){
+  cart=loadCart();
+  if(!cart.length)return alert("Your order is empty.");
+  const phone="918500627708";
+  const lines=cart.map(x=>{const p=products[x.i];return `${p[1]} — ${x.q} × ₹${p[3]} = ₹${x.q*p[3]}`}).join("\n");
+  const total=cart.reduce((s,x)=>s+products[x.i][3]*x.q,0);
+  location.href=`https://wa.me/${phone}?text=${encodeURIComponent("Hello Standard Crackers, I would like to place this order:\n\n"+lines+"\n\nTotal: ₹"+total)}`;
+}
+window.addEventListener("storage",()=>{cart=loadCart();update()});
 render();update();
 </script>
-<script id="v6-persistence-menu">
+
+<script id="v6-menu">
 (function(){
-  const KEY='standardCrackersCartV6';
-  function getCart(){
-    try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch(e){ return []; }
-  }
-  function saveCart(cart){ localStorage.setItem(KEY, JSON.stringify(cart)); }
-
-  // Persist the existing site's cart whenever it changes, while also restoring it on load.
-  // Supports common shapes: [{id,qty}], [{name,quantity}], and keyed objects.
-  function normalizeCart(cart){
-    if(Array.isArray(cart)) return cart;
-    if(cart && typeof cart==='object') return Object.values(cart);
-    return [];
-  }
-
-  function updateBadge(){
-    const cart=normalizeCart(getCart());
-    const count=cart.reduce((n,p)=>n+Number(p.qty ?? p.quantity ?? 1),0);
-    const b=document.getElementById('v6CartBadge');
-    if(b){ b.textContent=count; b.style.display=count?'inline-flex':'none'; }
-  }
-
-  // If the old page exposes a global cart, mirror it to V6 storage.
-  function mirrorGlobals(){
-    try{
-      if(Array.isArray(window.cart)){ saveCart(window.cart); updateBadge(); }
-      else if(Array.isArray(window.cartItems)){ saveCart(window.cartItems); updateBadge(); }
-    }catch(e){}
-  }
-
-  // Restore before user interaction. Also expose a stable V6 cart API.
-  window.standardCrackersCart = {
-    get:getCart,
-    set:function(cart){ saveCart(normalizeCart(cart)); updateBadge(); },
-    clear:function(){ localStorage.removeItem(KEY); updateBadge(); }
-  };
-
-  // Try common localStorage keys used by earlier versions and migrate once.
-  const legacyKeys=['cart','cartItems','standardCrackersCart','standardCrackersCartV5'];
-  if(!localStorage.getItem(KEY)){
-    for(const k of legacyKeys){
-      try{
-        const v=localStorage.getItem(k);
-        if(v){ const parsed=JSON.parse(v); if(Array.isArray(parsed) || (parsed && typeof parsed==='object')){ saveCart(normalizeCart(parsed)); break; } }
-      }catch(e){}
-    }
-  }
-
-  // Intercept localStorage writes for common cart keys so the cart remains after refresh.
-  const originalSet=localStorage.setItem.bind(localStorage);
-  localStorage.setItem=function(k,v){
-    originalSet(k,v);
-    if(legacyKeys.includes(k) || k===KEY) setTimeout(updateBadge,0);
-  };
-
-  document.addEventListener('DOMContentLoaded',function(){
-    updateBadge();
-    mirrorGlobals();
-
-    const burger=document.getElementById('v6Burger');
-    const drawer=document.getElementById('v6Drawer');
-    const close=document.getElementById('v6DrawerClose');
-    const backdrop=document.getElementById('v6DrawerBackdrop');
-    function open(){ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
-    function shut(){ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
-    burger && burger.addEventListener('click',open);
-    close && close.addEventListener('click',shut);
-    backdrop && backdrop.addEventListener('click',shut);
-    drawer && drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',shut));
-
-    // Re-check the badge periodically because older cart code may mutate an array directly.
-    setInterval(function(){ mirrorGlobals(); updateBadge(); }, 700);
+  document.addEventListener("DOMContentLoaded",function(){
+    const burger=document.getElementById("v6Burger"),drawer=document.getElementById("v6Drawer");
+    const close=document.getElementById("v6DrawerClose"),back=document.getElementById("v6DrawerBackdrop");
+    function open(){drawer.classList.add("open");drawer.setAttribute("aria-hidden","false");burger.setAttribute("aria-expanded","true");document.body.style.overflow="hidden"}
+    function shut(){drawer.classList.remove("open");drawer.setAttribute("aria-hidden","true");burger.setAttribute("aria-expanded","false");document.body.style.overflow=""}
+    burger&&burger.addEventListener("click",open);close&&close.addEventListener("click",shut);back&&back.addEventListener("click",shut);
+    drawer&&drawer.querySelectorAll("a").forEach(a=>a.addEventListener("click",shut));
   });
 })();
-</script>
-</body></html>
+</script></body></html>
