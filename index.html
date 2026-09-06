@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Standard Crackers | Diwali 2026</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#080808;color:#fff}
+header{position:sticky;top:0;z-index:20;background:#090909;border-bottom:1px solid #493000}
+nav,.wrap{max-width:1200px;margin:auto}nav{padding:10px 18px;display:flex;align-items:center;justify-content:space-between}
+.logo{height:48px;max-width:240px;object-fit:contain;background:#fff;border-radius:7px;padding:2px}
+button,.btn{border:0;border-radius:9px;padding:12px 17px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block}
+.primary{background:#ffd21c;color:#111}.secondary{background:#191919;color:#fff;border:1px solid #493000}
+.hero{min-height:500px;display:flex;align-items:center;padding:70px 18px;background:radial-gradient(circle at 75% 25%,#702500,#260c00 28%,#080808 68%)}
+.eyebrow{color:#ffd21c;font-weight:900;letter-spacing:3px}h1{font-size:clamp(45px,8vw,88px);line-height:.92;margin:15px 0}h1 span{color:#ffd21c}
+.hero p{max-width:650px;color:#ddd;font-size:18px;line-height:1.6}.section{max-width:1200px;margin:auto;padding:55px 18px}
+h2{font-size:34px;margin:0 0 8px}.muted{color:#aaa}.filters{display:flex;gap:8px;overflow:auto;padding:18px 0}
+.filters button{white-space:nowrap}.filters .active{background:#ffd21c;color:#111}
+.search{width:100%;background:#151515;border:1px solid #382700;color:#fff;padding:14px;border-radius:10px;font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:20px}
+.card{background:#141414;border:1px solid #342500;border-radius:15px;overflow:hidden;display:flex;flex-direction:column}
+.pic{height:145px;background:linear-gradient(135deg,#321100,#161616);display:flex;align-items:center;justify-content:center;font-size:60px}
+.body{padding:16px;display:flex;flex-direction:column;flex:1}.cat{color:#ffd21c;font-size:12px;font-weight:800;text-transform:uppercase}
+.name{font-size:17px;font-weight:800;line-height:1.25;margin:7px 0;min-height:44px}.pack{color:#999;font-size:13px}
+.price{margin:13px 0}.mrp{color:#777;text-decoration:line-through;margin-right:7px}.sale{font-size:22px;font-weight:900;color:#ffd21c}
+.add{width:100%;margin-top:auto;background:#ffd21c;color:#111}.cartbar{position:fixed;right:18px;bottom:18px;z-index:30;background:#ffd21c;color:#111;padding:15px 18px;border-radius:13px;font-weight:900}
+.modal{display:none;position:fixed;inset:0;background:#000b;z-index:40;align-items:flex-end;justify-content:center}.panel{background:#121212;border:1px solid #4b3200;border-radius:18px 18px 0 0;width:min(700px,100%);padding:22px;max-height:80vh;overflow:auto}
+.item{display:flex;justify-content:space-between;border-bottom:1px solid #292929;padding:12px 0;gap:10px}.total{font-size:24px;font-weight:900;color:#ffd21c;margin:18px 0}
+.notice{font-size:13px;color:#999;line-height:1.55;max-width:950px}footer{padding:35px 18px;text-align:center;border-top:1px solid #2c2100;color:#999}
+@media(max-width:600px){.logo{max-width:190px;height:42px}}
+</style></head>
+<body>
+<header><nav><img class="logo" src="logo.png" alt="Standard Fire Works">
+<div><a class="btn secondary" href="https://www.standardcrackers.com/productlist.php" target="_blank">Live Catalogue</a>
+<button class="primary" onclick="openCart()">🛒 Cart <span id="count">0</span></button></div></nav></header>
+<section class="hero"><div class="wrap"><div class="eyebrow">STANDARD CRACKERS • DIWALI 2026</div>
+<h1>LIGHT UP<br><span>YOUR DIWALI</span> ✨</h1>
+<p>Browse our festive collection, compare MRP with offer prices, add products to your order and contact us for availability and delivery.</p>
+<a class="btn primary" href="#shop">Shop Now →</a></div></section>
+<section class="section" id="shop"><h2>Cracker Catalogue</h2>
+<div class="muted">Selected products imported from the current online Standard Crackers catalogue.</div>
+<div class="filters" id="filters"></div><input class="search" id="search" placeholder="Search products..." oninput="render()">
+<div class="grid" id="grid"></div></section>
+<section class="section"><h2>Complete Catalogue</h2><p class="muted">Open the live source catalogue for the full inventory and latest availability.</p>
+<a class="btn primary" href="https://www.standardcrackers.com/productlist.php" target="_blank">Open Complete Catalogue ↗</a></section>
+<section class="section"><h2>Safety & legal notice</h2>
+<p class="notice">Fireworks are regulated products. Sales, delivery, transport, permitted products, age requirements and use are subject to applicable Indian laws and local rules. Verify legal requirements before publishing or accepting orders.</p></section>
+<footer><b>STANDARD CRACKERS</b><br>Light Up Your Diwali ✨</footer>
+<div class="cartbar" onclick="openCart()">🛒 <span id="cartText">0 items</span></div>
+<div class="modal" id="modal" onclick="if(event.target===this)closeCart()"><div class="panel">
+<div style="display:flex;justify-content:space-between;align-items:center"><h2>Your Order</h2><button class="secondary" onclick="closeCart()">Close</button></div>
+<div id="items"></div><div class="total" id="total">Total: ₹0</div>
+<button class="primary" style="width:100%" onclick="checkout()">Send Order on WhatsApp</button></div></div>
+<script>
+const products=[["Sparklers", "BOBY GOLD SPARKLERS 7CM (10PCS)", 100, 20, "1 Box", "✨"], ["Sparklers", "BOBBY CRACKLINGS SPARKLERS 7CM (10PCS)", 125, 25, "1 Box", "✨"], ["Sparklers", "12CM 4 COLOUR SPARKLERS (10PCS)", 250, 50, "1 Box", "🌈"], ["Sparklers", "12CM RED SPARKLERS (10PCS)", 275, 55, "1 Box", "✨"], ["Sparklers", "LEMON TREE SPARKLERS 15CM (10PCS)", 375, 75, "1 Box", "✨"], ["Sparklers", "GOLD SPARKLERS 15CM (10PCS)", 450, 90, "1 Box", "✨"], ["Flower Pots", "LITTLE FLOWER (1PC)", 400, 80, "1 Box", "🌸"], ["Flower Pots", "MINI FOUNTAIN (RED/GOLD/SILVER) (6PCS)", 400, 80, "1 Box", "🌸"], ["Flower Pots", "FLOWERPOT SMALL (10PCS)", 500, 100, "1 Box", "🌸"], ["Flower Pots", "FLOWERPOTS BIG (10PCS)", 900, 180, "1 Box", "🌸"], ["Flower Pots", "FLOWERPOTS SPECIAL (10PCS)", 1200, 240, "1 Box", "🌺"], ["Ground Chakkars", "ZAMIN CHAKKARS BIG (10PCS)", 350, 70, "1 Box", "🌀"], ["Ground Chakkars", "RED & WHITE CHAKKARS (10PCS)", 400, 80, "1 Box", "🌀"], ["Ground Chakkars", "TWIN SPIN WHEEL (5PCS)", 625, 125, "1 Box", "🌀"], ["Ground Chakkars", "ZAMIN CHAKKARS SPECIAL (10PCS)", 1000, 200, "1 Box", "🌀"], ["Novel Fireworks", "TWINKLING STAR 45CM (10PCS)", 300, 60, "1 Box", "⭐"], ["Novel Fireworks", "FIRE PENCILS (10PCS)", 425, 85, "1 Box", "🔥"], ["Rockets", "SURVEYOR ROCKETS (10PCS)", 525, 105, "1 Box", "🚀"], ["Rockets", "RAINBOW ROCKETS (10PCS)", 875, 175, "1 Box", "🚀"], ["Rockets", "ROHINI ROCKETS (10PCS)", 1500, 300, "1 Box", "🚀"], ["Sound Crackers", "SPARROW 6.5CM (5PCS)", 100, 20, "1 Pkt", "💥"], ["Sound Crackers", "9CM PEACOCK (5PCS)", 150, 30, "1 Pkt", "💥"], ["Sound Crackers", "10CM LAKSHMI (5PCS)", 225, 45, "1 Pkt", "💥"], ["Bijili", "BIJILI RED (50PCS)", 200, 40, "1 Pkt", "🧨"], ["Bijili", "RED BIJILI (100PCS)", 375, 75, "1 Pkt", "🧨"], ["Bombs", "BULLET BOMBS (10PCS)", 300, 60, "1 Box", "💥"], ["Bombs", "COLOUR FLASH (5PCS)", 625, 125, "1 Box", "💥"], ["Bombs", "ATOM BOMBS (10PCS)", 675, 135, "1 Box", "💥"], ["Matchboxes", "CONE 3 IN 1 MATCHBOX", 80, 40, "1 Box", "🔥"], ["Matchboxes", "KING 6 IN 1 MATCHBOX", 160, 80, "1 Box", "🔥"], ["Gift Boxes", "FANTASTIC 37 GIFTBOX", 2860, 1430, "1 Box", "🎁"], ["Gift Boxes", "KHUSHI 42 GIFTBOX", 3480, 1740, "1 Box", "🎁"], ["Gift Boxes", "JUBILEE 46 GIFTBOX", 3760, 1880, "1 Box", "🎁"], ["Gift Boxes", "TITAN 55 GIFTBOX", 5150, 2575, "1 Box", "🎁"]],cart=[];let active="All";
+const cats=["All",...new Set(products.map(p=>p[0]))];
+document.getElementById("filters").innerHTML=cats.map(c=>`<button class="${c==="All"?"active":""}" onclick="setCat('${c}')">${c}</button>`).join("");
+function setCat(c){active=c;document.querySelectorAll(".filters button").forEach(b=>b.classList.toggle("active",b.textContent===c));render()}
+function render(){const q=document.getElementById("search").value.toLowerCase();const list=products.filter(p=>(active==="All"||p[0]===active)&&p[1].toLowerCase().includes(q));
+document.getElementById("grid").innerHTML=list.map((p,i)=>`<article class="card"><div class="pic">${p[5]}</div><div class="body"><div class="cat">${p[0]}</div><div class="name">${p[1]}</div><div class="pack">${p[4]}</div><div class="price"><span class="mrp">₹${p[2]}</span><span class="sale">₹${p[3]}</span></div><button class="add" onclick="add(${products.indexOf(p)})">Add to Order</button></div></article>`).join("")}
+function add(i){cart.push(products[i]);update()}
+function update(){document.getElementById("count").textContent=cart.length;document.getElementById("cartText").textContent=cart.length+" item"+(cart.length===1?"":"s")}
+function openCart(){document.getElementById("modal").style.display="flex";document.getElementById("items").innerHTML=cart.length?cart.map(p=>`<div class="item"><span>${p[1]}<br><small>${p[4]}</small></span><b>₹${p[3]}</b></div>`).join(""):"<p class='muted'>Your order is empty.</p>";document.getElementById("total").textContent="Total: ₹"+cart.reduce((s,p)=>s+p[3],0)}
+function closeCart(){document.getElementById("modal").style.display="none"}
+function checkout(){if(!cart.length)return alert("Your order is empty.");const phone="918500627708";
+const lines=cart.map(p=>`${p[1]} - ₹${p[3]}`).join("\\n");
+const total=cart.reduce((s,p)=>s+p[3],0);
+location.href=`https://wa.me/${phone}?text=${encodeURIComponent("Hello Standard Crackers, I would like to order:\\n"+lines+"\\n\\nTotal: ₹"+total)}`;}
+render();update();
+</script></body></html>
